@@ -1,0 +1,55 @@
+version: "3.3"
+services:
+  calculator:
+    image: tpnode:2
+    command: node /Services/CalculatorService.js
+    expose:
+      - "80"
+    ports:
+      - "800:80"
+    networks:
+      static-network:
+        ipv4_address: 15.0.2.5
+  linux:
+    image: ubuntu
+    tty: true
+    networks:
+      static-network:
+        ipv4_address: 15.0.2.50
+  sum:
+    image: tpnode:2
+    command: node /Services/SumService.js
+    expose:
+      - 50001
+    networks:
+      static-network:
+        ipv4_address: 15.0.2.6
+  sub:
+    image: tpnode:2
+    command: node /Services/SubService.js
+    expose:
+      - 50002
+    networks:
+      static-network:
+        ipv4_address: 15.0.2.2
+  mul:
+    image: tpnode:2
+    command: node /Services/MulService.js
+    expose:
+      - 50003
+    networks:
+      static-network:
+        ipv4_address: 15.0.2.3
+  div:
+    image: tpnode:2
+    command: node /Services/DivService.js
+    expose:
+      - 50004
+    networks:
+      static-network:
+        ipv4_address: 15.0.2.4
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 15.0.2.0/24
